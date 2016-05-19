@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: utf8
-  database: project_development
+  database: unasuke_quotes_development
   pool: 5
   username:
   password:
@@ -9,7 +9,7 @@ development:
 test: &TEST
   adapter: postgresql
   encoding: utf8
-  database: project_test
+  database: unasuke_quotes_test
   pool: 5
   username:
   password:
@@ -17,7 +17,7 @@ test: &TEST
 production:
   adapter: postgresql
   encoding: utf8
-  database: project_production
+  database: unasuke_quotes_production
   pool: 5
   username:
   password:
