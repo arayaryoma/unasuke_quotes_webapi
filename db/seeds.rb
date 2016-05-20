@@ -1,16 +1,25 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 require 'CSV'
-tweets = CSV.table('/Users/Ryoma/Downloads/108252390_63123566238ddc7bdc1229c0a4b0d4847bdefb75/tweets.csv')
-#tweets = CSV.table('/Users/Ryoma/allajah_hack/terakoya/unasuke_quotes/testfile.csv')
-tweets.each do |tweet|
-  if tweet[:in_reply_to_status_id].blank? && tweet[:retweeted_status_id].blank?
-    Unasuke.create!({tweet_id: tweet[:tweet_id], tweet_time_stamp: DateTime.parse(tweet[:timestamp]), tweet_text: tweet[:text]})
+require 'open-uri'
+
+TWEETS_CSV_URL = 'https://gist.githubusercontent.com/unasuke/e8449466ca3a5af3a9fe92c103447b7d/raw/bbddcfb07045620426696a0c94c2be0d0d87314f/tweets.csv'
+LOCAL_CSV_NAME = "tweets.csv"
+
+open(LOCAL_CSV_NAME, "w") do |f|
+  open(TWEETS_CSV_URL) do |t|
+    f.write t.read
   end
 end
+
+tweets = CSV.table LOCAL_CSV_NAME
+tweets.each do |tweet|
+  Unasuke.create!(
+    tweet_id:         tweet[:tweet_id],
+    tweet_text:       tweet[:text].to_s.gsub(/\0/, ''),
+    tweet_time_stamp: DateTime.parse(tweet[:timestamp]),
+  )
+end
+
+Unasuke.where("tweet_text LIKE '@%'").delete_all
+Unasuke.where("tweet_text LIKE 'RT %'").delete_all
+
+File.delete LOCAL_CSV_NAME
