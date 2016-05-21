@@ -1,24 +1,13 @@
-## README
+# unasuke quates web api server
+## what's this?
+This is an api server that return unasuke's(twitter: `@yu_suke1994`) tweet for random.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## setup
+### dependency
+- Ruby 2.3.1
+- PostgreSQL
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```shell
+$ bundle install
+$ bundle exec rake db:create db:migrate db:seed
+```

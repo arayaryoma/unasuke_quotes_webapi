@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160326070902) do
+ActiveRecord::Schema.define(version: 20160519162448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 20160326070902) do
   create_table "unasukes", force: :cascade do |t|
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.datetime "tweet_time_stamp"
-    t.string   "tweet_id"
-    t.string   "tweet_text"
+    t.datetime "tweet_time_stamp", null: false
+    t.string   "tweet_id",         null: false
+    t.string   "tweet_text",       null: false
   end
 
 end
